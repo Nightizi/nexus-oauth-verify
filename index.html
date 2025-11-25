@@ -3,133 +3,99 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Discord Verificado - Nexus Store</title>
-
+    <title>Autenticação Concluída - Nexus Store</title>
+    <!-- Carrega o Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Tailwind para usar a fonte Poppins, como no original -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        /* Define Poppins como a fonte principal e garante o fundo com efeito visual */
         body {
+            font-family: 'Poppins', sans-serif;
+            /* ** NOVO: Usando o banner de fundo fornecido ** */
+            background: url('https://cdn.discordapp.com/attachments/1441534823520014510/1441536910190182442/Gemini_Generated_Image_gqgwsxgqgwsxgqgw.png?ex=6926c49d&is=6925731d&hm=793792400589037effe9570534dc06b03872f8320a7a2cc95b6121bcc6f883ac&') center/cover no-repeat fixed;
+            /* Adiciona um filtro de desfoque e escurecimento ao fundo para melhorar a legibilidade do card */
+            filter: blur(0px); /* O desfoque visual será feito com um pseudo-elemento */
+        }
+        
+        /* Estilo para criar o efeito de desfoque na imagem de fundo, mas manter o card nítido */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: url('https://cdn.discordapp.com/attachments/1441534823520014510/1441536910190182442/Gemini_Generated_Image_gqgwsxgqgwsxgqgw.png?ex=692378dd&is=6922275d&hm=6a90d76bebfe2d108576f10824a526c10ca972dc1161a7bce0aee1aad44e3b37&') center/cover no-repeat;
-            backdrop-filter: blur(4px);
+            height: 100%;
+            background: inherit;
+            filter: blur(4px) brightness(0.7); /* Desfoque e escurecimento */
+            z-index: -1; /* Coloca atrás do conteúdo */
         }
 
-        .card {
-            width: 420px;
-            background: rgba(20, 0, 35, 0.55);
-            padding: 35px;
-            border-radius: 22px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 0 25px rgba(115, 0, 255, 0.7);
-            backdrop-filter: blur(12px);
-            animation: fadeIn 0.9s ease;
-        }
-
+        /* Animação para o card */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .logo {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 20px;
-            border-radius: 18px;
-            box-shadow: 0 0 18px rgba(150, 90, 255, 0.8);
+        .card-animate {
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        p {
-            font-size: 15px;
-            opacity: 0.75;
-            margin-bottom: 25px;
-        }
-
-        .check {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-            background: #8d4bff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #8d4bff;
-            animation: pop 0.6s ease;
-        }
-
+        /* Animação de pop para o ícone de check */
         @keyframes pop {
-            from { transform: scale(0.4); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .check svg {
-            width: 38px;
-            fill: white;
-        }
-
-        .btn-discord {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: 600;
-            color: white;
-            background: #5865F2;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
-            transition: all 0.2s ease;
-        }
-
-        .btn-discord:hover {
-            background: #4752C4;
-            box-shadow: 0 0 20px rgba(88, 101, 242, 0.8);
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            opacity: 0.6;
+        .check-animate {
+            animation: pop 0.6s ease-out forwards;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center p-4 text-white relative">
 
-    <div class="card">
-        <img class="logo" src="https://cdn.discordapp.com/icons/1441182766707376200/cea148a4465077ca91d48f509a21f2fd.png?size=2048" />
+    <!-- Card Principal Centrado -->
+    <div class="card-animate w-full max-w-sm bg-indigo-900/40 backdrop-blur-xl p-8 md:p-10 rounded-2xl text-center shadow-2xl shadow-purple-800/80 border border-purple-700/60 z-10">
+        
+        <!-- Logo (Imagem do Servidor) -->
+        <!-- ** NOVO: Usando a imagem do servidor fornecida ** -->
+        <img 
+            class="w-24 h-24 mx-auto mb-6 rounded-2xl object-cover shadow-lg shadow-purple-500/70"
+            src="https://cdn.discordapp.com/attachments/1441534823520014510/1441536573245231154/Gemini_Generated_Image_dd5c3udd5c3udd5c.png?ex=6926c44d&is=692572cd&hm=a3b65ff8f2e73b0cf60daceeeb54a4d329327d3efd87a8e20b7c4bc7fdf3941e&"
+            alt="Logo da Nexus Store"
+        />
 
-        <h1>Discord Verificado</h1>
-        <p>Sua conta foi validada com sucesso. Pode fechar esta página!</p>
-
-        <div class="check">
-            <svg viewBox="0 0 24 24">
-                <path d="M20.285 6.709l-11.025 11.025-5.545-5.545 1.414-1.414 4.131 4.131 9.611-9.611z" />
+        <!-- Ícone de Verificação -->
+        <div class="check-animate w-16 h-16 mx-auto mb-5 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/60">
+            <!-- Ícone SVG de Checkmark (Lucide Icon style) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                <path d="M20 6 9 17l-5-5"/>
             </svg>
         </div>
 
-        <!-- Botão para voltar pro Discord -->
-        <a class="btn-discord" href="https://discord.gg/ruCpfVqsAA" target="_blank">Voltar para o Discord</a>
+        <!-- Título e Mensagem -->
+        <h1 class="text-3xl font-extrabold text-white mb-2">
+            Autenticação Concluída
+        </h1>
+        <p class="text-base text-gray-300 opacity-90 mb-8">
+            Sua identidade foi verificada com sucesso. Agora, pode retornar ao Discord.
+        </p>
 
-        <div class="footer">Nexus Store • OAuth2</div>
+        <!-- Botão para Voltar ao Discord -->
+        <a 
+            class="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-200 ease-in-out shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/70 text-lg" 
+            href="https://discord.gg/ruCpfVqsAA" 
+            target="_blank"
+        >
+            Continuar para o Discord
+        </a>
+
+        <!-- Rodapé -->
+        <div class="mt-8 text-xs text-gray-400 opacity-75">
+            Nexus Store • OAuth2
+        </div>
     </div>
 
 </body>
