@@ -1,94 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111827" />
+    
+    <!-- SEO & Identity -->
     <title>Autenticação Concluída - Nexus Store</title>
+    <meta name="description" content="Sua identidade foi verificada com sucesso. Retorne ao Discord com segurança.">
+    <meta name="author" content="Nexus Store">
     
+    <!-- Open Graph / Discord Embeds -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Autenticação Concluída">
+    <meta property="og:description" content="Acesso autorizado. Você pode retornar ao Discord agora.">
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png">
+    <meta property="og:site_name" content="Nexus Store">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              nexus: {
+                dark: '#0f0c29',
+                purple: '#302b63',
+                light: '#24243e',
+                accent: '#7c3aed', 
+              }
+            },
+            animation: {
+              'shimmer': 'shimmer 2s linear infinite',
+            },
+            keyframes: {
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            /* Garante que o body não tem background para o pseudo-elemento fazer o trabalho */
-            background: #111827; /* Fallback de cor escura */
-        }
-        
-        /* 1. Responsável pelo BACKGROUND: Imagem, Desfoque e Escurecimento. */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* URL da Imagem de Fundo Otimizada (simulada) */
-            background: url('https://cdn.discordapp.com/attachments/1441534823520014510/1441536910190182442/Gemini_Generated_Image_gqgwsxgqgwsxgqgw.png?ex=692fff1d&is=692ead9d&hm=ea4cf66fcaebb6db0c7853bfb06e52c042de39c649cd73f979c12e777799d66e&') center/cover no-repeat fixed;
-            filter: blur(5px) brightness(0.6); /* Aumentei um pouco para maior contraste */
-            z-index: -1;
-        }
-
-        /* 2. Animação de Entrada (Card) */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .card-animate {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        /* 3. Animação de Pop (Checkmark) - Ajustada para um pop mais rápido e intenso */
-        @keyframes pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .check-animate {
-            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+      body {
+        background-color: #111827;
+        margin: 0;
+        overflow-x: hidden;
+      }
     </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 text-white relative">
-
-    <main class="card-animate w-full max-w-sm bg-indigo-900/40 backdrop-blur-xl p-8 md:p-10 rounded-2xl text-center shadow-2xl shadow-purple-800/80 border border-purple-700/60 z-10">
-        
-        <img 
-            class="w-24 h-24 mx-auto mb-6 rounded-2xl object-cover shadow-lg shadow-purple-500/70"
-            src="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png?ex=6930105f&is=692ebedf&hm=9e3801fe4aa36d4d39f03f0422578f149692fe6210c9257a5ba3809ee10b6d86&"
-            alt="Logo da Nexus Store"
-            loading="lazy"
-        />
-
-        <div class="check-animate w-16 h-16 mx-auto mb-5 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/60">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                <path d="M20 6 9 17l-5-5"/>
-            </svg>
-        </div>
-
-        <h1 class="text-3xl font-extrabold text-white mb-2">
-            Autenticação Concluída
-        </h1>
-        <p class="text-base text-gray-300 opacity-90 mb-8">
-            Sua identidade foi verificada com sucesso. Agora, pode retornar ao Discord.
-        </p>
-
-        <a 
-            class="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-200 ease-in-out shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/70 text-lg" 
-            href="https://discord.gg/ruCpfVqsAA" 
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Continuar para o Discord
-        </a>
-
-        <footer>
-             <div class="mt-8 text-xs text-gray-400 opacity-75">
-                Nexus Store • OAuth2
-            </div>
-        </footer>
-    </main>
-
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
